@@ -1,0 +1,61 @@
+<app-loading *ngIf="loading"></app-loading>
+
+<div class="row m-3 animated fadeIn" *ngIf="!loading">
+    <div class="col-md-6 animated fadeIn" style="text-align: center;">
+        <img [src]="pelicula.poster_path | poster" class="img-thumbnail poster" style="width: 70%; " [alt]="pelicula.title">
+    </div>
+    <div class="col-md-6">
+        <h2><strong>{{pelicula.title}} ({{pelicula.release_date |date : 'YYYY'}})</strong></h2>
+
+        <div class="row">
+            <div class="col-9">
+                <star-rating [value]="pelicula.vote_average" totalstars="10" checkedcolor="yellow" uncheckedcolor="grey" size="20px" readonly="false"></star-rating>
+            </div>
+            <div class="col-2 text-white" style="text-align: center;margin-top: 4px;">
+                {{pelicula.vote_average | number: '1.1-2'}}/10
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <h3><strong>GENERO</strong></h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2 text-white" style="width: auto;" *ngFor="let genero of pelicula.genres">
+                <i class="bi bi-gem"></i> {{genero.name}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col mt-2 text-white">
+                <h3><strong>SINOPSIS</strong></h3>
+                {{pelicula.overview}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-white mt-3">
+                <strong> Popularidad: </strong> <span class="badge bg-primary">{{pelicula.popularity}}</span>
+            </div>
+            <div class="col text-white mt-3">
+                <strong> Voto Promedio: </strong> <span class="badge bg-primary">{{pelicula.vote_count}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col mt-5 text-end">
+                <button class="btn btn-outline-danger" (click)="onRegresar()">
+                    Regresar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col m-2">
+        <h2>Reparto Principal</h2>
+    </div>
+</div>
+<div class="row" *ngIf="cast.length > 0">
+    <div class="col  animated fadeIn" *ngIf="!loading">
+        <app-cast-slideshow [cast]="cast"></app-cast-slideshow>
+    </div>
+</div>

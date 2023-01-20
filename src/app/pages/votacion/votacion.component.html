@@ -1,0 +1,30 @@
+<h1 class="mt-3">Votaciones PeliculasApp</h1>
+<hr>
+<div class="row">
+    <div class="col-md-3 mb-5 animated fadeIn" *ngFor="let data of votosP">
+
+        <img [src]="data.url | poster" class="img-fluid poster">
+        <div>
+            <div class="row">
+                <div class="col-12">
+                    <h5 style="text-align: center;"><strong>{{data.nombre}}</strong></h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col text-center">
+                    <button (click)="votarPeli(data)" class="btn btn-outline-primary">
+                        Votar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<hr>
+<h2 style="text-align: center;">Votaciones Peliculas Del Mes</h2>
+<div class="row">
+    <div class="col mb-5" *ngIf="bandera">
+        <app-gbh [results]="grafica"></app-gbh>
+    </div>
+</div>

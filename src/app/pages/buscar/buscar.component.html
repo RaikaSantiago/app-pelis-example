@@ -1,0 +1,22 @@
+<div class="container">
+    <h1>Buscar Peliculas - <small class="text-capitalize">{{valorBuscado}}</small></h1>
+
+    <app-loading *ngIf="loading"></app-loading>
+    <div *ngIf="error" class="alert alert-danger animated fadeIn m-5">
+        <h3><i class="bi bi-exclamation-diamond-fill"></i> Error</h3>
+        <p>
+            {{errorMensaje}}
+        </p>
+    </div>
+    <div *ngIf="result" class="alert alert-info  animated fadeIn m-5">
+        <h1 class="text-dark"><strong>No se encontraron resultados</strong> </h1>
+        <p class="text-dark">
+            No se encontraron resultados para la busqueda <strong>{{valorBuscado}}</strong>
+        </p>
+    </div>
+    <div class="row">
+        <div class="col animated fadeIn">
+            <app-peliculas-poster-grid [movies]="movies"></app-peliculas-poster-grid>
+        </div>
+    </div>
+</div>

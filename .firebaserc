@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "firestore-goty-478fa": {
+      "hosting": {
+        "peliculasApp": [
+          "firestore-goty-478fa"
+        ]
+      }
+    }
+  }
+}

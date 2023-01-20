@@ -1,0 +1,19 @@
+<app-loading *ngIf="loading"></app-loading>
+
+<h1>Cartelera</h1>
+
+<div class="row" *ngIf="movies.length > 0">
+    <div class="col animated fadeIn">
+        <app-slideshow [movies]="moviesSlideShow"></app-slideshow>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <h1 class="m-3">Ultimas Peliculas</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col animated fadeIn">
+        <app-peliculas-poster-grid *ngIf="movies.length > 0" [movies]="movies"></app-peliculas-poster-grid>
+    </div>
+</div>
