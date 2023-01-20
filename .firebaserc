@@ -6,6 +6,13 @@
           "firestore-goty-478fa"
         ]
       }
+    },
+    "firestore-goty-1e6dd": {
+      "hosting": {
+        "peliculasApp": [
+          "firestore-goty-1e6dd"
+        ]
+      }
     }
   }
 }
