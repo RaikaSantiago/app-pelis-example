@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MovieModel } from 'src/app/models/cartelera.model';
-import Swiper from 'swiper';
+import { SwiperService } from 'src/app/services/util/swiper.service';
 
 @Component({
   selector: 'app-slideshow',
@@ -10,34 +10,23 @@ import Swiper from 'swiper';
 })
 export class SlideshowComponent implements OnInit, AfterViewInit {
 
-  @Input() movies:MovieModel[];
-  swiper:any;
-  constructor(private router: Router) { }
+  @Input() movies: MovieModel[];
+
+  constructor(public router: Router, public swiperService: SwiperService) { }
 
   ngOnInit(): void {
 
   }
 
-  ngAfterViewInit(){
-
-    this.swiper = new Swiper('.swiper-container', {
-     
+  ngAfterViewInit() {
+    this.swiperService.reconstruir({
       loop: true,
-
-    });
-
-    
+    })
   }
 
-  onMovie(pelicula:MovieModel){
-    this.router.navigate(['/pelicula',pelicula.id]);
+  onMovie(pelicula: MovieModel) {
+    this.router.navigate(['/pelicula', pelicula.id]);
   }
 
-  onSlidePrev(){
-    this.swiper.slidePrev();
-  }
 
-  onSlideNext(){
-    this.swiper.slideNext();
-  }
 }

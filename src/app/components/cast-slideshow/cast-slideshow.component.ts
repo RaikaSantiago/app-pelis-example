@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CastModel } from 'src/app/models/creditos.model';
-import Swiper from 'swiper';
+import { SwiperService } from 'src/app/services/util/swiper.service';
 
 @Component({
   selector: 'app-cast-slideshow',
@@ -9,32 +9,20 @@ import Swiper from 'swiper';
 })
 export class CastSlideshowComponent implements OnInit {
 
-  @Input() cast:CastModel[];
-  swiper:any;
+  @Input() cast:CastModel[] = [];
 
-  constructor() { }
+  constructor(public swiperService: SwiperService) { }
 
   ngOnInit(): void {
     
   }
 
   ngAfterViewInit(){
-
-    this.swiper = new Swiper('.swiper-container', {
+    this.swiperService.reconstruir({
       slidesPerView:5.3,
       freeMode:true,
       spaceBetween:15,
-
-    });
-
-    
+    })
   }
 
-  onSlidePrev(){
-    this.swiper.slidePrev();
-  }
-
-  onSlideNext(){
-    this.swiper.slideNext();
-  }
 }

@@ -11,49 +11,49 @@ import { map } from "rxjs/operators";
 })
 export class VotacionComponent implements OnInit {
 
-  votosP:VotosModel [] = [];
-  grafica:any [] = [];
-  bandera:boolean = false;
+  votosP: VotosModel[] = [];
+  grafica: any[] = [];
+  bandera: boolean = false;
   constructor(private peliculasService: PeliculasService,
-              private db: AngularFirestore) { 
-    
+    private db: AngularFirestore) {
+
   }
 
- async ngOnInit(){
-    
-    this.db.collection('votos').valueChanges().pipe(
-      map(res => res.map(({nombre, votos}) => ({name: nombre, value: votos}))
-      //   {
-      //   return res.map( (peliculas:any) => {
-      //     return {
-      //       name: peliculas.nombre,
-      //       value: peliculas.votos
-      //     }
-      //   })
-      // }
-      )
-    )
-    .subscribe(resp => {
-      this.grafica = resp;
-      
-    })
+  ngOnInit() {
+
+    this.getVotosList();
 
     this.peliculasService.cargarVotosPelis().subscribe(votos => {
       this.votosP = votos;
-      if(this.votosP.length > 0){
-          this.bandera = true;
-         
+      if (this.votosP.length > 0) {
+        this.bandera = true;
       }
-      
+
     });
   }
 
-  votarPeli(data:VotosModel){
-   
-    
-    const votar = data.votos + 1;
+  public getVotosList() {
+    this.db.collection('votos').valueChanges().pipe(
+      map(res => res.map(({ nombre, votos }) => ({ name: nombre, value: votos }))
+        //   {
+        //   return res.map( (peliculas:any) => {
+        //     return {
+        //       name: peliculas.nombre,
+        //       value: peliculas.votos
+        //     }
+        //   })
+        // }
+      )
+    )
+      .subscribe(resp => {
+        this.grafica = resp;
+        // console.log(resp);
+        
+      })
+  }
 
-    
+  votarPeli(data: VotosModel) {
+    const votar = data.votos + 1;
   }
 
 }

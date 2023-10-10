@@ -10,16 +10,17 @@ import { MovieModel } from 'src/app/models/cartelera.model';
 })
 export class PeliculasPosterGridComponent implements OnInit {
 
-  @Input() movies:MovieModel[];
+  @Input() movies: MovieModel[];
+
   constructor(private router: Router) { }
 
   ngOnInit(): void {
 
-    
+
   }
 
-  onMovie(pelicula:MovieModel){
-    this.router.navigate(['/pelicula',pelicula.id]);
+  onMovie(pelicula: MovieModel) {
+    this.router.navigate(['/pelicula', pelicula.id]);
   }
 
 }

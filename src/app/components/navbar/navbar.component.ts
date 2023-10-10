@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { GenerosModel } from 'src/app/models/generos.model';
 import { GenreModel } from 'src/app/models/pelicula.model';
 import { PeliculasService } from 'src/app/services/peliculas.service';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-navbar',
@@ -11,31 +11,39 @@ import { PeliculasService } from 'src/app/services/peliculas.service';
 })
 export class NavbarComponent implements OnInit {
 
-  
-  generos:GenreModel[] = [];
+  public generos: GenreModel[] = [];
+  public URL_HOME: string = "/home";
+  public URL_SEARCH: string = "/buscar";
 
-  constructor(private router: Router,
-              private peliculasService: PeliculasService) { }
+  constructor(public router: Router,
+    private peliculasService: PeliculasService) { }
 
   ngOnInit() {
-
-    this.peliculasService.getGeneros().subscribe( gen =>{
-      
-      this.generos = gen;
-    })
+    this.getListGeneros();
   }
 
-  buscarPelicula(texto:string){
+  public getListGeneros(){
+    try {
+      this.peliculasService.getGeneros().subscribe(gen => {
+        this.generos = gen;
+      })
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Error al obtener la lista de géneros!'+ error,
+      });
+    }
     
-    
-    texto = texto.trim();
+  }
 
-    if ( texto.length === 0) {
+  buscarPelicula(texto: string) {
+    texto = texto.trim();
+    if (texto.length === 0) {
+      this.router.navigateByUrl(this.URL_HOME);
       return;
     }
-
-    this.router.navigate(['/buscar',texto]);
-   
+    this.router.navigate([this.URL_SEARCH, texto]);
   }
 
 }

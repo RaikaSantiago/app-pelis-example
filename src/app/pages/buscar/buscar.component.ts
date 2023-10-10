@@ -21,31 +21,36 @@ export class BuscarComponent implements OnInit {
               private peliculasService: PeliculasService) { }
 
   ngOnInit(): void {
+    this.searchParams();
+  }
 
-
+  public searchParams(){
     this.activatedRoute.params.subscribe(resp=>{
       this.loading = true;
       this.error = false;
       this.valorBuscado = resp.texto;
-      this.peliculasService.buscarPeliculas(resp.texto).subscribe(resp =>{
-        this.loading = false;
-        
-        if (resp.length > 0) {
-          this.result = false;
-          this.movies = resp;
-        }else{
-          this.result = true;
-          this.movies = [];
-        }
-        
-      }, (err) => {
-         
-        this.loading = false;
-        this.error = true;
-        this.errorMensaje = err.error.error.message;
-      })
-
+      this.getSearchFilms(this.valorBuscado);
     })
   }
+
+  private getSearchFilms(dataSearch: string){
+    this.peliculasService.buscarPeliculas(dataSearch).subscribe(resp =>{
+      this.loading = false;
+      
+      if (resp.length > 0) {
+        this.result = false;
+        this.movies = resp;
+      }else{
+        this.result = true;
+        this.movies = [];
+      }
+      
+    }, (err) => {
+       
+      this.loading = false;
+      this.error = true;
+      this.errorMensaje = err.error.error.message;
+    })
+  } 
 
 }

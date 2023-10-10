@@ -8,7 +8,7 @@ import { VotacionComponent } from './pages/votacion/votacion.component';
 const routes: Routes = [
 
   {path: 'home',component: HomeComponent},
-  {path: 'voto',component: VotacionComponent},
+  // {path: 'voto',component: VotacionComponent},
   {path: 'pelicula/:id',component: PeliculaComponent},
   {path: 'buscar/:texto',component: BuscarComponent},
   {path: '**',pathMatch:'full', redirectTo:'home'},

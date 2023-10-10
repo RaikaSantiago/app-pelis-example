@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { PeliculasService } from '../../services/peliculas.service';
 
 @Component({
   selector: 'app-goty',
@@ -8,13 +7,9 @@ import { PeliculasService } from '../../services/peliculas.service';
 })
 export class GotyComponent implements OnInit {
 
-  constructor(private peliculasService: PeliculasService) { }
+  constructor() { }
 
   ngOnInit(): void {
-  }
-
-  agregarVoto(){
-    
   }
 
 }
