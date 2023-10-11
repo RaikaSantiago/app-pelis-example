@@ -1,25 +1,25 @@
 <div class="row">
 
-    <div class="col-md-3 mb-5 animated fadeIn" *ngFor="let data of movies">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 col-xxl-2 mb-3 animated fadeIn" *ngFor="let data of movies">
 
-        <img [src]="data.poster_path | poster" class="img-fluid poster puntero" (click)="onMovie(data)">
+        <img [src]="data.poster_path | poster" class="img-fluid poster puntero carta" (click)="onMovie(data)">
         <div>
             <div class="row">
                 <div class="col-12">
-                    <h3><strong>{{data.title}}</strong></h3>
+                    <h3 class="mt-2 text-white"><strong>{{data.title | titlecase }}</strong></h3>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-9">
+            <div class="row justify-content-center" style="text-align: center;">
+                <div class="col-7 col-xxl-12">
                     <star-rating [value]="data.vote_average" totalstars="10" checkedcolor="yellow" uncheckedcolor="grey" size="14px" readonly="false"></star-rating>
                 </div>
-                <div class="col-2 text-white">
+                <div class="col-3 col-xxl-12 text-white">
                     {{data.vote_average | number: '1.1-2'}}/10
                 </div>
             </div>
             <div class="row">
                 <div class="col-12 text-white" style="text-align: center;">
-                    <h6><small>{{data.release_date | date: 'YYYY'}}</small></h6>
+                    <h6><small>{{data.release_date | date: 'MM-YYYY'}}</small></h6>
                 </div>
             </div>
         </div>

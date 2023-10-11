@@ -1,0 +1,12 @@
+.dropdown-menu {
+    max-height: 280px;
+    overflow-y: auto;
+}
+
+.btn-width{
+    width: 160px;
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+    background-color: #cfd0d1;
+}

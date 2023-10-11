@@ -38,6 +38,12 @@ export class PeliculasService {
     this.carteleraPage = 1;
   }
 
+  getImagesMovie(idMovie: string){
+    return this.http.get<GenerosModel>(`${this.baseUrl}/movie/${idMovie}/images`, {
+      params: this.params
+    });
+  }
+
   getCartelera(): Observable<MovieModel[]> {
 
     if (this.cargando) {
