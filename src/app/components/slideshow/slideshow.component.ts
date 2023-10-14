@@ -21,7 +21,7 @@ export class SlideshowComponent implements OnInit, AfterViewInit {
 
   getMovieImages(){
     this.peliService.getImagesMovie(this.movies[0].id.toString()).subscribe(res => {
-      console.log(res);
+      // console.log(res);
       
     })
   }

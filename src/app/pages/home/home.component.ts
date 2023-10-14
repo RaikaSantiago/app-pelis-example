@@ -29,9 +29,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.loading = false;
       this.movies = resp;
       this.moviesSlideShow = resp;
-      console.log(resp);
-      
-      // this.peliculasService.agregarPeliculaConVotos(resp);
     });
   }
 
@@ -45,7 +42,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
     }
   }
-
 
   ngOnDestroy() {
     this.peliculasService.resetCarteleraPage();

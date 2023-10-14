@@ -13,51 +13,48 @@ import { Result } from '../../models/trailer.models';
   styleUrls: ['./pelicula.component.css']
 })
 export class PeliculaComponent implements OnInit {
-  
-  pelicula:PeliculaModel;
-  cast:CastModel[] = [];
-  video:Result[] = [];
-  loading:boolean;
-  
+
+  public pelicula: PeliculaModel;
+  public cast: CastModel[] = [];
+  public video: Result[] = [];
+  public loading: boolean = true;
+
 
   constructor(private activatedRoute: ActivatedRoute,
-              private peliculasService:PeliculasService,
-              private location: Location,
-              private router: Router) { }
+    private peliculasService: PeliculasService,
+    private location: Location,
+    private router: Router) { }
 
-  ngOnInit(): void {
-
-    this.loading = true;
-    const {id} = this.activatedRoute.snapshot.params;
-
-    // combineLatest : Permite estar atento de varios llamadados simultaneos agrupandolos en uno solo
-      combineLatest([
-        this.peliculasService.getPeliculaDetalle(id),
-        this.peliculasService.getCast(id),
-        this.peliculasService.getVideoTrailer(id)
-      ]).subscribe(([pelicula,cast,video])=>{
-        
-        
-        if(!pelicula && !cast){
-          this.loading = false;
-          this.router.navigateByUrl('/home')
-          return;
-        }
-        // console.log(video);
-        // console.log(pelicula);
-        
-        this.loading = false;
-        this.pelicula = pelicula;
-        this.cast = cast.filter( actor => actor.profile_path !== null);
-        this.video = video;
-      })  
-    
-      
+  async ngOnInit(): Promise<void> {
+    this.getConsultCombineLatest();
   }
 
+  async getConsultCombineLatest() {
+    const { id } = this.activatedRoute.snapshot.params;
 
+    // combineLatest : Permite estar atento de varios llamadados simultaneos agrupandolos en uno solo
+    await combineLatest([
+      this.peliculasService.getPeliculaDetalle(id),
+      this.peliculasService.getCast(id),
+      this.peliculasService.getVideoTrailer(id)
+    ]).toPromise().then(([pelicula, cast, video]) => {
+      if (!pelicula && !cast) {
+        this.router.navigateByUrl('/home')
+        return;
+      }
+      if (video.length > 0) {
+        this.video = video;
+        const tag = document.createElement('script');
+        tag.src = 'http://www.youtube.com/iframe_api';
+        document.body.appendChild(tag);
+      }
+      this.pelicula = pelicula;
+      this.cast = cast.filter(actor => actor.profile_path !== null);
+      
+    }).finally(() => this.loading = false)
+  }
 
-  onRegresar(){
+  onRegresar() {
     this.location.back();
   }
 
