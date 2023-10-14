@@ -12,43 +12,38 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   public movies: MovieModel[] = [];
   public moviesSlideShow: MovieModel[] = [];
-  loading:boolean;
- 
+  loading: boolean = true;
 
-  @HostListener('window:scroll',['$event']) onScroll(){
-
-    const posScroll = (document.documentElement.scrollTop || document.body.scrollTop) + 1300;
-    const maxScroll = (document.documentElement.scrollHeight || document.body.scrollHeight);
-
-    if (posScroll > maxScroll) {
-
-      if(this.peliculasService.cargando){return;}
-
-      this.peliculasService.getCartelera().subscribe( resp =>{
-        
-        this.movies.push(...resp)
-      });
-    }
+  @HostListener('window:scroll', ['$event']) onScroll() {
+    this.scrollEventListener();
   }
 
   constructor(private peliculasService: PeliculasService) { }
 
   async ngOnInit() {
-   
-    
-    this.loading = true;
+    this.getConsultCartelera();
+  }
+
+  public getConsultCartelera() {
     this.peliculasService.getCartelera().subscribe(resp => {
       this.loading = false;
       this.movies = resp;
       this.moviesSlideShow = resp;
-      // this.peliculasService.agregarPeliculaConVotos(resp);
     });
-
-   
-   
-    
   }
-  ngOnDestroy(){
+
+  public scrollEventListener() {
+    const posScroll = (document.documentElement.scrollTop || document.body.scrollTop) + 1300;
+    const maxScroll = (document.documentElement.scrollHeight || document.body.scrollHeight);
+    if (posScroll > maxScroll) {
+      if (this.peliculasService.cargando) { return; }
+      this.peliculasService.getCartelera().subscribe(resp => {
+        this.movies.push(...resp)
+      });
+    }
+  }
+
+  ngOnDestroy() {
     this.peliculasService.resetCarteleraPage();
   }
 

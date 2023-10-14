@@ -1,29 +1,30 @@
 import { Injectable } from '@angular/core';
-import Swiper from 'swiper';
+import Swiper, { SwiperOptions } from 'swiper';
+import { SwiperServiceType } from './swiper.service.type';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SwiperService {
+export class SwiperService implements SwiperServiceType {
 
   swiper: Swiper;
 
   constructor() { }
-  
+
   /**
    * Construye la instancia Swiper
    * @param params 
    * @returns 
    */
-  public reconstruir(params: any){
+  public reconstruir(params: SwiperOptions) {
     this.swiper = new Swiper('.swiper-container', params);
   }
 
-  public onSlidePrev(){
+  public onSlidePrev() {
     this.swiper.slidePrev();
   }
 
-  public onSlideNext(){
+  public onSlideNext() {
     this.swiper.slideNext();
   }
 }

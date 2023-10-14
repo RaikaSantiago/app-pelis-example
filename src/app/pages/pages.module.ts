@@ -9,7 +9,6 @@ import { RatingModule } from 'ng-starrating';
 import { VotacionComponent } from './votacion/votacion.component';
 
 
-
 @NgModule({
   declarations: [
     HomeComponent,
