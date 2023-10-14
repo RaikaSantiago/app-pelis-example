@@ -44,9 +44,6 @@ export class PeliculaComponent implements OnInit {
       }
       if (video.length > 0) {
         this.video = video;
-        const tag = document.createElement('script');
-        tag.src = 'http://www.youtube.com/iframe_api';
-        document.body.appendChild(tag);
       }
       this.pelicula = pelicula;
       this.cast = cast.filter(actor => actor.profile_path !== null);
